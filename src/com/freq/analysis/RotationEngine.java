@@ -40,9 +40,6 @@ public class RotationEngine {
         this.expectedFrequencies = this.getNormalizedRelativeFrequencies(this.expectedFrequencies);
         this.characterFrequencies = this.getNormalizedRelativeFrequencies(this.characterFrequencies);
 
-        System.out.println(Arrays.toString(this.characterFrequencies));
-        System.out.println(Arrays.toString(this.expectedFrequencies));
-
         // Find most likely rotation
         double minLoss = Double.MAX_VALUE;
         int bestRotation = -1;
