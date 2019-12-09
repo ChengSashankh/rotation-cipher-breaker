@@ -51,7 +51,7 @@ public class BreakCommand extends Command {
     /**
      * Generate output messages for display given the rotation key and plaintext.
      * @param rotationKey - Integer representing the rotation key of cipher.
-     * @return List<String> of output messages to display.
+     * @return List of String of output messages to display.
      */
     List<String> getOutputMessages(int rotationKey) {
         List<String> outputStrings = new ArrayList<>();
