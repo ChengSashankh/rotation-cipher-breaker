@@ -1,7 +1,11 @@
 package com.freq.analysis;
 
+/**
+ * Implements character frequency methods and constants.
+ */
 public class CharacterFrequencies {
 
+    // Expected character frequencies for English language text.
     public final double[] relativeFrequencies =  {
             8.12,
             1.49,
@@ -31,10 +35,19 @@ public class CharacterFrequencies {
             0.07
     };
 
+    /**
+     * Gets the expected frequencies for English text.
+     * @return double array containing expected relative frequencies.
+     */
     public double[] getExpectedFrequencies() {
         return relativeFrequencies;
     }
 
+    /**
+     * Calculates the character frequencies in a given String (alphabetic only).
+     * @param inputText - String representing the input text to compute frequencies for.
+     * @return double array containing raw character frequency counts.
+     */
     public static double[] getCharacterFrequencies(String inputText) {
         double[] characterFrequencies = new double[26];
         String lowerCaseString = inputText.toLowerCase();
