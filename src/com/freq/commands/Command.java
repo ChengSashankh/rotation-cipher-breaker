@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Abstract class for Commands.
+ */
 public abstract class Command {
     List<String> arguments;
 
@@ -12,6 +15,11 @@ public abstract class Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Read text from file.
+     * @return String containing the text read.
+     * @throws IOException if file is not found / unreadable for other reasons.
+     */
     String getTextFromFile() throws IOException {
         File inputTextFile = new File(this.arguments.get(1));
         FileInputStream fileInputStream = new FileInputStream(inputTextFile);
