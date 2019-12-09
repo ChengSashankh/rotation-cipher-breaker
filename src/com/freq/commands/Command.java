@@ -11,6 +11,5 @@ public abstract class Command {
 
     abstract List<String> preprocessArguments();
 
-    abstract Result run ();
-
+    abstract public Result run () throws Exception;
 }
