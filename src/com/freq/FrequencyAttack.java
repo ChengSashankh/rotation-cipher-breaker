@@ -18,8 +18,11 @@ public class FrequencyAttack {
     public static void showWelcomeMessage() {
         System.out.println("Welcome to FrequencyAttack tool.");
         System.out.println("This tool will assist you in executing a frequency analysis attack on an English language input text file.");
-        System.out.println("At any point, stop the program with Ctrl + C to exit");
-        System.out.println("Commands:\n\t1. analyse PATH_TO_FILE\n\t2. break PATH_TO_FILE");
+        showWelcomeMessage();
+    }
+
+    public static void showCommandList() {
+        System.out.println("Commands:\n\t1. analyse PATH_TO_FILE\n\t2. break PATH_TO_FILE\n\t3. exit");
     }
 
     /**
