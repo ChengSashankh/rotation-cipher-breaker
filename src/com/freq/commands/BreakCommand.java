@@ -2,6 +2,11 @@ package com.freq.commands;
 
 import com.freq.analysis.CharacterFrequencies;
 import com.freq.analysis.RotationEngine;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +14,7 @@ import java.util.List;
  * Implements the break command.
  */
 public class BreakCommand extends Command {
+    static final String OUTPUT_FILE_PATH = "decrypt.out";
 
     public BreakCommand(List<String> arguments) {
         super(arguments);
@@ -37,18 +43,22 @@ public class BreakCommand extends Command {
         return plainText.toString();
     }
 
+    void writeStringToFile (String textToWrite, String fileName) throws IOException {
+        Path path = Paths.get(OUTPUT_FILE_PATH);
+        Files.write(path, textToWrite.getBytes());
+    }
+
     /**
      * Generate output messages for display given the rotation key and plaintext.
      * @param rotationKey - Integer representing the rotation key of cipher.
-     * @param plaintext - String representing the plaintext message retrieved.
      * @return List<String> of output messages to display.
      */
-    List<String> getOutputMessages(int rotationKey, String plaintext) {
+    List<String> getOutputMessages(int rotationKey) {
         List<String> outputStrings = new ArrayList<>();
 
         String breakSuccessMessage = new String("Rotation cipher break results: ");
         String bestRotationMessage = new String("Best rotation: " + rotationKey);
-        String plainTextMessage = new String("Deciphered plaintext:\n" + plaintext);
+        String plainTextMessage = new String("Deciphered plaintext written to: " + OUTPUT_FILE_PATH);
 
         outputStrings.add(breakSuccessMessage);
         outputStrings.add(bestRotationMessage);
@@ -76,7 +86,8 @@ public class BreakCommand extends Command {
         }
 
         String plaintext = decipherByRotation(bestRotation, inputText);
-        List<String> outputMessages = getOutputMessages(bestRotation, plaintext);
+        writeStringToFile(plaintext, OUTPUT_FILE_PATH);
+        List<String> outputMessages = getOutputMessages(bestRotation);
 
         return new Result(true, outputMessages);
     }
