@@ -33,7 +33,7 @@ public class CommandParser {
     /**
      * Tokenizes command string to separate command word and arguments.
      * @param preProcessedString - String representing pre-processed user input.
-     * @return - ArrayList<String> representing the tokenized user input.
+     * @return - ArrayList of String representing the tokenized user input.
      */
     List<String> getTokenizedCommand(String preProcessedString) {
         String[] tokenizedCommand = preProcessedString.split(COMMAND_DELIMITER);

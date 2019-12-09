@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.freq"},{"l":"com.freq.analysis"},{"l":"com.freq.commands"},{"l":"com.freq.commands.parser"}]
