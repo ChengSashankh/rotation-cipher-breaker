@@ -1,5 +1,7 @@
 package com.freq.analysis;
 
+import java.util.concurrent.*;
+
 /**
  * Implements the Rotation Cipher attack.
  * TODO: Using ThreadPool to parallely compute loss for different rotation keys.
@@ -7,10 +9,15 @@ package com.freq.analysis;
 public class RotationEngine {
     double[] characterFrequencies;
     double[] expectedFrequencies;
+    ThreadPoolExecutor threadPoolExecutor;
+
+    static final int NUM_THREADS = 5;
 
     public RotationEngine(double[] characterFrequencies) {
         this.characterFrequencies = characterFrequencies;
         this.expectedFrequencies = new CharacterFrequencies().getExpectedFrequencies();
+
+        this.threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(NUM_THREADS);
     }
 
     /**
@@ -33,25 +40,10 @@ public class RotationEngine {
     }
 
     /**
-     * Evaluates L1 loss between expected and observed frequencies at a given rotation.
-     * @param rotation - Integer representing the provided key of the rotation cipher (shift).
-     * @return Double representing the L1 loss with this rotation shift.
-     */
-    public double evaluateRotationLoss(int rotation) {
-        double loss = 0;
-
-        for (int i = 0; i < 26; i++) {
-            loss += Math.abs(this.expectedFrequencies[i] - this.characterFrequencies[(i + rotation) % 26]);
-        }
-
-        return loss;
-    }
-
-    /**
      * Finds the best rotation for the current input cipher by minimizing the loss function.
-     * @return
+     * @return Integer representing best rotation key.
      */
-    public int minimizeRotationLoss() {
+    public int minimizeRotationLoss() throws InterruptedException, ExecutionException {
         // Normalize the relative frequencies
         this.expectedFrequencies = this.getNormalizedRelativeFrequencies(this.expectedFrequencies);
         this.characterFrequencies = this.getNormalizedRelativeFrequencies(this.characterFrequencies);
@@ -60,10 +52,21 @@ public class RotationEngine {
         double minLoss = Double.MAX_VALUE;
         int bestRotation = -1;
 
+        FutureTask[] lossAtIterationFutures = new FutureTask[26];
+
         for (int i = 0; i < 26; i++) {
-            double lossAtCurrentIteration = this.evaluateRotationLoss(i);
-            if (lossAtCurrentIteration < minLoss) {
-                minLoss = lossAtCurrentIteration;
+            LossEvaluation lossEvaluation = new LossEvaluation("Rotation" + i, this.characterFrequencies, i);
+            lossAtIterationFutures[i] = new FutureTask(lossEvaluation);
+            threadPoolExecutor.submit(lossAtIterationFutures[i]);
+        }
+
+        double[] lossValues = new double[26];
+
+        for (int i = 0; i < 26; i++) {
+            lossValues[i] = (Double) lossAtIterationFutures[i].get();
+
+            if (lossValues[i] < minLoss) {
+                minLoss = lossValues[i];
                 bestRotation = i;
             }
         }
