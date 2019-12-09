@@ -27,9 +27,31 @@ text file is placed in the same directory as the jar file.
 |---------------------------|------------------------------------------------------------------------|
 | `analyse cipherinput.txt` | Displays the relative character frequencies in the ciphertext.         |
 | `break cipherinput.txt`   | Displays the decrypted plaintext, along with the most likely rotation. |
-| `exit`   | Exits the command line interface | 
+| `exit`   | Exits the command line interface |
 
-## Developer Setup
+## Usage Example
+
+The example below shows the decryption of a rotation cipher using the `break` command.  
+
+```$xslt
+Welcome to FrequencyAttack tool.
+This tool will assist you in executing a frequency analysis attack on an English language input text file.
+At any point, stop the program with Ctrl + C to exit
+Commands:
+	1. analyse PATH_TO_FILE
+	2. break PATH_TO_FILE
+> break cipherinput.txt
+Rotation cipher break results: 
+Best rotation: 5
+Deciphered plaintext:
+parliament passed the stamp act in 1765 to pay for british military troops stationed in the american colonies after the french and indian war. parliament had previously passed legislation to regulate trade, but the stamp act introduced a new principle of a direct internal tax. americans began to question the extent of the british parliament's power in america, and the colonial legislatures argued that they had exclusive right to impose taxes within their jurisdictions.[47] colonists condemned the tax because their rights as englishmen protected them from being taxed by a parliament in which they had no elected representatives.[48] parliament argued that the colonies were "represented virtually", an idea that was criticized throughout the empire.[49] parliament did repeal the act in 1766, but it also affirmed its right to pass laws that were binding on the colonies.[50] from 1767, parliament began passing legislation to raise revenue for the salaries of civil officials, ensuring their loyalty while inadvertently increasing resentment among the colonists, and opposition soon became widespread.
+> exit
+
+Process finished with exit code 0
+
+```
+
+## Developer Setup!
 
 To develop further from this repository, you can clone this repository. This root of this repository serves as project root as well. In addition, note that:
 
