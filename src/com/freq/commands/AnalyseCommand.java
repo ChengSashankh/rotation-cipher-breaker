@@ -2,22 +2,24 @@ package com.freq.commands;
 
 import com.freq.analysis.CharacterFrequencies;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the analyse command.
+ */
 public class AnalyseCommand extends Command {
 
     public AnalyseCommand(List<String> arguments) {
         super(arguments);
     }
 
-    @Override
-    List<String> preprocessArguments() {
-        return null;
-    }
-
+    /***
+     * Generates formatted output using character frequencies.
+     * @param characterFrequencies - Array containing frequency of each character.
+     * @return Result object containing formatted output.
+     */
     public Result generateAnalysisOutput(double[] characterFrequencies) {
         List<String> outputStrings = new ArrayList<>();
 
@@ -36,8 +38,13 @@ public class AnalyseCommand extends Command {
         return new Result(true, outputStrings);
     }
 
+    /***
+     * Run trigger for the analyse command.
+     * @return Result object containing command execution output.
+     * @throws IOException if input file is not found.
+     */
     @Override
-    public Result run() throws Exception {
+    public Result run() throws IOException {
         String inputString = this.getTextFromFile();
         double[] characterFrequencies = CharacterFrequencies.getCharacterFrequencies(inputString);
         Result commandExecutionResult = generateAnalysisOutput(characterFrequencies);
