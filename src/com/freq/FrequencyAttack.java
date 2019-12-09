@@ -18,7 +18,6 @@ public class FrequencyAttack {
     public static void showWelcomeMessage() {
         System.out.println("Welcome to FrequencyAttack tool.");
         System.out.println("This tool will assist you in executing a frequency analysis attack on an English language input text file.");
-        showWelcomeMessage();
     }
 
     public static void showCommandList() {
@@ -31,7 +30,9 @@ public class FrequencyAttack {
      * @param userInputScanner
      */
     public static void acceptNextCommand(CommandParser commandParser, Scanner userInputScanner) {
+        showCommandList();
         System.out.print("> ");
+
         String commandString = userInputScanner.nextLine();
 
         try {
