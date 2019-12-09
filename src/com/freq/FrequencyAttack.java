@@ -27,7 +27,7 @@ public class FrequencyAttack {
     }
 
     public static void acceptNextCommand(CommandParser commandParser, Scanner userInputScanner) {
-        System.out.print(">");
+        System.out.print("> ");
         String commandString = userInputScanner.nextLine();
 
         try {

@@ -1,5 +1,7 @@
 package com.freq.analysis;
 
+import java.util.Arrays;
+
 public class RotationEngine {
     double[] characterFrequencies;
     double[] expectedFrequencies;
@@ -9,7 +11,7 @@ public class RotationEngine {
         this.expectedFrequencies = new CharacterFrequencies().getExpectedFrequencies();
     }
 
-    public double[] getRelativeFrequencies(double[] frequencyList) {
+    public double[] getNormalizedRelativeFrequencies(double[] frequencyList) {
         double frequencySum = 0;
 
         for (int i = 0; i < frequencyList.length; i++) {
@@ -17,7 +19,7 @@ public class RotationEngine {
         }
 
         for (int i = 0; i < frequencyList.length; i++) {
-            frequencyList[i] = frequencyList[i] / frequencySum;
+            frequencyList[i] = (frequencyList[i] / frequencySum) * 100;
         }
 
         return frequencyList;
@@ -27,13 +29,21 @@ public class RotationEngine {
         double loss = 0;
 
         for (int i = 0; i < 26; i++) {
-            loss += (this.expectedFrequencies[i] - this.characterFrequencies[(i + rotation) % 26]);
+            loss += Math.abs(this.expectedFrequencies[i] - this.characterFrequencies[(i + rotation) % 26]);
         }
 
         return loss;
     }
 
     public int minimizeRotationLoss() {
+        // Normalize the relative frequencies
+        this.expectedFrequencies = this.getNormalizedRelativeFrequencies(this.expectedFrequencies);
+        this.characterFrequencies = this.getNormalizedRelativeFrequencies(this.characterFrequencies);
+
+        System.out.println(Arrays.toString(this.characterFrequencies));
+        System.out.println(Arrays.toString(this.expectedFrequencies));
+
+        // Find most likely rotation
         double minLoss = Double.MAX_VALUE;
         int bestRotation = -1;
 
