@@ -14,6 +14,8 @@ public class CommandParser {
 
     public static final String ANALYSE_COMMAND = "analyse";
     public static final String BREAK_COMMAND = "break";
+    public static final String EXIT_COMMAND = "exit";
+
     public static final int COMMAND_INDEX = 0;
 
     String preProcessCommandString(String inputString) {
@@ -29,12 +31,11 @@ public class CommandParser {
     Command getCommandType(List<String> tokenizedCommand) throws Exception {
         String commandWord = tokenizedCommand.get(COMMAND_INDEX);
 
-        if (commandWord.equals(ANALYSE_COMMAND)) {
-            return new AnalyseCommand(tokenizedCommand);
-        } else if (commandWord.equals(BREAK_COMMAND)) {
-            return new BreakCommand(tokenizedCommand);
-        } else {
-            throw new Exception("Unknown command word");
+        switch (commandWord) {
+            case ANALYSE_COMMAND: return new AnalyseCommand(tokenizedCommand);
+            case BREAK_COMMAND: return new BreakCommand(tokenizedCommand);
+            case EXIT_COMMAND: System.exit(0);
+            default: throw new Exception("Unknown command word");
         }
     }
 
