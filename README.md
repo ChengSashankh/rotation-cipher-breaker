@@ -3,6 +3,8 @@
 This is a command line tool written in Java to break a rotation cipher automatically based on frequency analysis of the 
 characters. This is intended to be used to decrypt English language texts.
 
+Most recent release: `v0.1` (Please download `frequency-attack.jar` from the `release` tab above.) 
+
 ## Method
 
 English language text typically follows a natural frequency distribution of characters, which can be used to 
