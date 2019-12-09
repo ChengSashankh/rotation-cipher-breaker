@@ -38,7 +38,7 @@ public class CommandParser {
         }
     }
 
-    public Command getCommand(String inputString) {
+    public Command getCommand(String inputString) throws Exception {
         String preProcessedString = this.preProcessCommandString(inputString);
         List<String> tokenizedCommand = this.getTokenizedCommand(preProcessedString);
         Command command = getCommandType(tokenizedCommand);

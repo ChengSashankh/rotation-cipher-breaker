@@ -1,5 +1,7 @@
 package com.freq.commands;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 public abstract class Command {
@@ -9,8 +11,18 @@ public abstract class Command {
         this.arguments = arguments;
     }
 
+    String getTextFromFile() throws Exception {
+        File inputTextFile = new File(this.arguments.get(1));
+        FileInputStream fileInputStream = new FileInputStream(inputTextFile);
+
+        byte[] data = new byte[(int) inputTextFile.length()];
+        fileInputStream.read(data);
+        fileInputStream.close();
+
+        return new String(data, "UTF-8");
+    }
+
     abstract List<String> preprocessArguments();
 
-    abstract Result run ();
-
+    abstract public Result run () throws Exception;
 }
